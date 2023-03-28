@@ -1,9 +1,10 @@
-import { Metadata } from "next";
-import "./globals.css";
+import NavBar from '@/components/NavBar';
+import { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "My Blog",
-  description: "Temp - Blog Web Application",
+  title: 'My Blog',
+  description: 'Temp - Blog Web Application',
 };
 
 export default function RootLayout({
@@ -13,7 +14,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <>
+          {/* @ts-expect-error Async Server Component */}
+          <NavBar />
+          {children}
+        </>
+      </body>
     </html>
   );
 }
