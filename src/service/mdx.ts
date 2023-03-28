@@ -8,7 +8,6 @@ export type FrontMatter = {
   dir: string;
   draft: boolean;
   imageUrl: string;
-  lastmod: string;
   summary: string;
   tags: string[];
   title: string;
