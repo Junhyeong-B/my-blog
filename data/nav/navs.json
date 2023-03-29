@@ -5,14 +5,14 @@
   },
   {
     "name": "About",
-    "url": "/"
+    "url": "/about"
   },
   {
     "name": "Posts",
-    "url": "/"
+    "url": "/posts"
   },
   {
     "name": "Contact",
-    "url": "/"
+    "url": "/contact"
   }
 ]
