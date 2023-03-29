@@ -41,7 +41,7 @@ export function getMarkdownContent(dir: string) {
   return content;
 }
 
-export function getAllFilesFrontMatter(...folder: string[]): FrontMatter[] {
+export function getAllFileFrontMatters(...folder: string[]): FrontMatter[] {
   const files = getAllFiles(...folder).filter((dir) => /\.(md|mdx)$/.test(dir));
 
   const allFrontMatters: FrontMatter[] = [];
