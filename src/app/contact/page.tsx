@@ -1,5 +1,4 @@
-import EmailForm from '@/components/EmailForm/EmailForm';
-import Link from 'next/link';
+import EmailForm from '@/components/EmailForm';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import { SiNotion } from 'react-icons/si';
 

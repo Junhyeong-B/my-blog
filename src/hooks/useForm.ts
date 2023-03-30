@@ -8,14 +8,16 @@ type Props<T> = {
   initialValue: T;
   onSubmit: (values: T) => Promise<void>;
   validate: (values: T) => ErrorType;
-  beforeSubmit?: ({ values, error }: { values: T; error: ErrorType }) => void;
+  onSuccess?: (values: T) => void;
+  onFail?: ({ values, error }: { values: T; error: ErrorType }) => void;
 };
 
 export default function useForm<T>({
   initialValue,
   onSubmit,
   validate,
-  beforeSubmit,
+  onSuccess,
+  onFail,
 }: Props<T>) {
   const [values, setValues] = useState(initialValue);
   const [error, setError] = useState<ErrorType>({});
@@ -38,10 +40,14 @@ export default function useForm<T>({
     const errors = typeof validate === 'function' ? validate(values) : {};
     setError(errors);
 
-    beforeSubmit?.({ values, error: errors });
-
     if (Object.keys(errors).length === 0) {
-      await onSubmit(values);
+      try {
+        await onSubmit(values);
+        onSuccess?.(values);
+      } catch (e) {
+        onFail?.({ values, error: errors });
+        console.error(e);
+      }
     }
 
     setIsLoading(false);
