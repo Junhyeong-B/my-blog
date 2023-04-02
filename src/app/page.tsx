@@ -1,5 +1,5 @@
 import PostList from '@/components/PostList';
-import { getAllFileFrontMatters } from '@/service/mdx';
+import { getAllFileFrontMatters } from '@/service/files';
 
 export default function HomePage() {
   const files = getAllFileFrontMatters('blog');

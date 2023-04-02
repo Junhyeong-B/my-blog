@@ -11,6 +11,7 @@ export type FrontMatter = {
   summary: string;
   tags: string[];
   title: string;
+  slug: string;
 };
 
 const root = process.cwd();
@@ -53,10 +54,42 @@ export function getAllFileFrontMatters(...folder: string[]): FrontMatter[] {
       allFrontMatters.push({
         ...frontMatter,
         dir,
+        slug: formatSlug(dir),
         date: dayjs(frontMatter.date).format('MMMM D, YYYY'),
       } as FrontMatter);
     }
   });
 
   return allFrontMatters;
+}
+
+export function formatSlug(dir: string) {
+  const path = dir.split('\\');
+  return (path.pop() ?? '').replace(/\.(mdx|md)/, '');
+}
+
+export function getBlogContentBySlug(slug: string) {
+  const allPosts = getAllFileFrontMatters('blog');
+  const postIndex = allPosts.findIndex(
+    (frontMatter) => frontMatter.slug === slug
+  );
+
+  if (postIndex === -1) {
+    return null;
+  }
+
+  const prev = allPosts[postIndex - 1] || null;
+  const next = allPosts[postIndex + 1] || null;
+
+  const source = fs.readFileSync(allPosts[postIndex].dir, 'utf-8');
+  const { content } = matter(source);
+
+  return {
+    post: {
+      ...allPosts[postIndex],
+      content,
+    },
+    prev,
+    next,
+  };
 }
