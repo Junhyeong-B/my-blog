@@ -2,7 +2,7 @@ import {
   getAllFiles,
   FrontMatter,
   getAllFileFrontMatters,
-} from '@/service/mdx';
+} from '@/service/files';
 
 const joinMock = jest.fn();
 jest.mock('path', () => ({
@@ -26,6 +26,7 @@ describe('mdx test suite', () => {
     dir: 'test.md',
     draft: false,
     imageUrl: 'someImageUrl.com',
+    slug: 'test',
     summary: 'someSummary',
     tags: ['tags'],
     title: 'someTitle',
