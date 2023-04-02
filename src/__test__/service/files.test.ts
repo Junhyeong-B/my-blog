@@ -2,6 +2,8 @@ import {
   getAllFiles,
   FrontMatter,
   getAllFileFrontMatters,
+  formatSlug,
+  getBlogContentBySlug,
 } from '@/service/files';
 
 const joinMock = jest.fn();
@@ -67,6 +69,22 @@ describe('mdx test suite', () => {
     expect(result).toHaveLength(2);
     result.forEach((frontMatter) => {
       expect(frontMatter.dir).toBe(somePath);
+    });
+  });
+
+  test('formatSlug test - return file name from file path', () => {
+    const fileName = 'someFile';
+    const filePath = `C:\\folder1\\folder2\\${fileName}.md`;
+    const result = formatSlug(filePath);
+
+    expect(result).toBe(fileName);
+  });
+
+  describe('getBlogContentBySlug test', () => {
+    test('should return null with not exist', () => {
+      const result = getBlogContentBySlug('nothing');
+
+      expect(result).toBeNull();
     });
   });
 });
