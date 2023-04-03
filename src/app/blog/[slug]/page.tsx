@@ -31,9 +31,7 @@ export default function BlogDetailPage({ params: { slug } }: Props) {
           </h1>
           <MarkdownViewer content={post.post.content} />
         </section>
-        <section>
-          <MarkdownHeading content={post.post.content} />
-        </section>
+        <MarkdownHeading content={post.post.content} />
       </article>
       <footer className="m-4 grid grid-cols-2 justify-between gap-1">
         {post.prev && (

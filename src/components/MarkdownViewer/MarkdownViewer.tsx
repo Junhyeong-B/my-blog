@@ -10,6 +10,13 @@ type Props = {
 };
 
 export default function MarkdownViewer({ content }: Props) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        console.log(entry);
+      }
+    });
+  });
   return (
     <ReactMarkDown
       className="prose lg:prose-xl"
