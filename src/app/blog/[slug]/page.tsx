@@ -1,4 +1,5 @@
-import MarkdownViewer from '@/components/MarkdownViewer/MarkdownViewer';
+import MarkdownHeading from '@/components/MarkdownHeading';
+import MarkdownViewer from '@/components/MarkdownViewer';
 import { getBlogContentBySlug } from '@/service/files';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -30,6 +31,7 @@ export default function BlogDetailPage({ params: { slug } }: Props) {
           </h1>
           <MarkdownViewer content={post.post.content} />
         </section>
+        <MarkdownHeading content={post.post.content} />
       </article>
       <footer className="m-4 grid grid-cols-2 justify-between gap-1">
         {post.prev && (
