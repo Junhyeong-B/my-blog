@@ -11,7 +11,7 @@ export default function MarkdownHeading({ content }: { content: string }) {
   useIntersectionObserver(headers, setActiveId);
 
   return (
-    <section className="hidden border-l-2 border-l-slate-300 lg:fixed lg:top-[50%] lg:right-40 lg:block lg:translate-y-[-70%]">
+    <section className="right-0 hidden border-l-2 border-l-slate-300 xl:fixed  xl:right-8 xl:top-[50%] xl:block xl:translate-y-[-70%] 2xl:right-40">
       <ul className="relative flex flex-col">
         {headers?.map((header) => (
           <Anchor key={header} title={header} activeId={activeId} />
