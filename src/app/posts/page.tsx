@@ -1,4 +1,4 @@
-import SearchInput from '@/components/SearchInputWithPostList/SearchInput';
+import SearchInputWithPostList from '@/components/SearchInputWithPostList';
 import { getAllFileFrontMatters } from '@/service/files';
 
 export default function PostsPage() {
@@ -6,8 +6,7 @@ export default function PostsPage() {
 
   return (
     <main className="m-12">
-      <h1 className="text-3xl font-bold">모든 포스트</h1>
-      <SearchInput files={files} />
+      <SearchInputWithPostList files={files} />
     </main>
   );
 }
