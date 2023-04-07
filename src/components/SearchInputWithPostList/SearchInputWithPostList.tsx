@@ -1,13 +1,15 @@
 'use client';
 
-import { FrontMatter } from '@/service/files';
-import { useEffect, useRef, useState } from 'react';
-import DetailPostList from './DetailPostList';
-import debounce from '@/utils/debounce';
+import { useRef, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import SearchResultPostList from './SearchResultPostList';
 import { useRouter } from 'next/navigation';
+
+import { FrontMatter } from '@/service/files';
+import debounce from '@/utils/debounce';
+import DetailPostList from './DetailPostList';
+import SearchResultPostList from './SearchResultPostList';
 import useOnMount from '@/hooks/useOnMount';
+import { useIsMedium } from '@/hooks/useScreenType';
 
 type Props = {
   files: FrontMatter[];
@@ -21,6 +23,7 @@ export default function SearchInput({ files }: Props) {
   const [searchText, setSearchText] = useState('');
   const [searchedPosts, setSearchedPosts] = useState<FrontMatter[]>([]);
   const [resultPosts, setResultPosts] = useState<FrontMatter[]>([]);
+  const isMediumDevice = useIsMedium();
 
   useOnMount(() => {
     setResultPosts(files);
@@ -70,23 +73,31 @@ export default function SearchInput({ files }: Props) {
   };
 
   return (
-    <main className="mt-4 mb-8">
-      <form className="relative w-80" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="box-border w-full rounded-full border-2 border-slate-300 py-2 pr-16 pl-4 outline-none"
-          placeholder="검색어를 입력해주세요."
-          onChange={handleChange}
-          ref={inputRef}
-        />
-        <button className="absolute right-0 rounded-full border-2 border-l-0 border-slate-300 bg-slate-800 py-2 px-4 text-slate-50 transition-colors hover:bg-slate-600">
-          <AiOutlineSearch size="24px" />
-        </button>
-        {searchedPosts.length > 0 && (
-          <SearchResultPostList posts={searchedPosts} searchText={searchText} />
-        )}
-      </form>
-      <DetailPostList posts={resultPosts} />
-    </main>
+    <section className="mt-4 mb-8 flex flex-col gap-12 lg:flex-row">
+      <section className="flex justify-center gap-4 lg:block">
+        <h1 className="mb-4 hidden text-3xl font-bold sm:block">모든 포스트</h1>
+        <form className="relative w-80" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="box-border w-full rounded-full border-2 border-slate-300 py-2 pr-16 pl-4 outline-none"
+            placeholder="검색어를 입력해주세요."
+            onChange={handleChange}
+            ref={inputRef}
+          />
+          <button className="absolute right-0 rounded-full border-2 border-l-0 border-slate-300 bg-slate-800 py-2 px-4 text-slate-50 transition-colors hover:bg-slate-600">
+            <AiOutlineSearch size="24px" />
+          </button>
+          {!isMediumDevice && searchedPosts.length > 0 && (
+            <SearchResultPostList
+              posts={searchedPosts}
+              searchText={searchText}
+            />
+          )}
+        </form>
+      </section>
+      <section className="grow space-y-5">
+        <DetailPostList posts={resultPosts} />
+      </section>
+    </section>
   );
 }
